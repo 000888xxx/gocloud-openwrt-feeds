@@ -51,10 +51,10 @@ define Package/luci-app-koolproxy/install
 	cp -pR ./root/* $(1)/
 
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/koolproxy $(1)/usr/share/koolproxy/koolproxy
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/rules/user.txt $(1)/usr/share/koolproxy/data/
 	$(INSTALL_DIR) $(1)/usr/share/koolproxy/data/rules
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/rules/koolproxy.txt $(1)/usr/share/koolproxy/data/rules/
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/rules/kp.dat $(1)/usr/share/koolproxy/data/rules/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/rules/user.txt $(1)/usr/share/koolproxy/data/rules/
 endef
 
 $(eval $(call BuildPackage,luci-app-koolproxy))

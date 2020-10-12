@@ -161,10 +161,6 @@ lan_acess_control() {
 	fi
 }
 
-load_user_rules() {
-	cp $KP_DIR/data/user.txt $KP_DIR/data/rules/user.txt
-}
-
 load_rules() {
 	sed -i '1,3s/1/0/g' $KP_DIR/data/source.list
 
@@ -314,7 +310,6 @@ pre_start() {
 
 	iptables -t nat -C PREROUTING -p tcp -j KOOLPROXY 2>/dev/null && [ $? -eq 0 ] && return 0;
 	load_rules
-	load_user_rules
 	add_ipset_conf && restart_dnsmasq
 	creat_ipset
 	add_white_black_ip
