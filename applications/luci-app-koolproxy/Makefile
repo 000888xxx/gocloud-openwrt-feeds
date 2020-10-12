@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-koolproxy
 PKG_VERSION:=3.8.4
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -16,9 +16,6 @@ endef
 
 define Build/Prepare
 	cp ./koolproxy/$(ARCH) $(PKG_BUILD_DIR)/koolproxy
-
-	mkdir -p $(PKG_BUILD_DIR)/rules
-	cp ./koolproxy/rules/* $(PKG_BUILD_DIR)/rules
 endef
 
 define Build/Compile
@@ -52,9 +49,7 @@ define Package/luci-app-koolproxy/install
 
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/koolproxy $(1)/usr/share/koolproxy/koolproxy
 	$(INSTALL_DIR) $(1)/usr/share/koolproxy/data/rules
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/rules/koolproxy.txt $(1)/usr/share/koolproxy/data/rules/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/rules/kp.dat $(1)/usr/share/koolproxy/data/rules/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/rules/user.txt $(1)/usr/share/koolproxy/data/rules/
+	cp -pR ./koolproxy/rules/* $(1)/usr/share/koolproxy/data/rules/
 endef
 
 $(eval $(call BuildPackage,luci-app-koolproxy))
